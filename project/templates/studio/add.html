@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title%} {{ title }} {% endblock %}
+{% block content%}
+<div class="container py-4 text-center">
+    <h2>Write a new article</h2>
+    <!-- Markdown Editor -->
+    <form action="{{request.path}}" method="POST">
+        {{ form.csrf_token }}
+
+
+        
+        <div class="form-group mb-3">
+            {{ form.title(class_="form-control",placeholder="Title")}}
+        </div>
+        {% for error in form.title.errors %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor%}
+        <div class="form-group mb-3">
+            {{ form.body(class_="form-control",placeholder="Body")}}
+        </div>
+        {% for error in form.body.errors %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor%}
+        <button type="submit" class="btn  btn-primary mb-3">Publish article</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title%} {{ title }} {% endblock %}
+{% block content%}
+<div class="container py-4 text-center">
+    <h1>STUDIO ARTICLE</h1>
+
+    <p>{{article.title}}</p>
+    <p>{{article.body}}</p>
+    <p>{{article.date}}</p>
+
+</div>
+{% endblock %}
