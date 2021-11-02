@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% block title%} {{ title }} {% endblock %}
 {% block content%}
-<div class="container py-4 text-center">
+<div class="container py-4">
     <h2>Write a new article</h2>
     <!-- Markdown Editor -->
     <form action="{{request.path}}" method="POST">
         {{ form.csrf_token }}
-
 
         
         <div class="form-group mb-3">
@@ -27,7 +26,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         {% endfor%}
-        <button type="submit" class="btn  btn-primary mb-3">Publish article</button>
+        <button type="submit" class="btn  btn-primary mb-3"> {{btn_text}} </button>
     </form>
+    {{ simplemde.load }}
 </div>
 {% endblock %}

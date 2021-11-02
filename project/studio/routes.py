@@ -72,10 +72,51 @@ def add_article():
             db.session.commit()
             flash(f"Article succesfully published", "success")
 
-            return redirect(url_for("studio.index"))
+            return redirect(url_for("studio.articles"))
 
         except Exception as e:
             db.session.rollback()
             flash(e, "danger")
 
-    return render_template("studio/add.html",form=form)
+    return render_template("studio/add.html",form=form,btn_text="Publish article")
+
+
+@studio.route("/articles/update/<int:article_id>/",methods=["GET", "POST"],strict_slashes=False)
+def update_article(article_id):
+
+    form = ArticleForm()
+
+    article = Articles.query.filter_by(id=article_id).first()
+
+
+    if form.validate_on_submit() and request.method =='POST':
+        try:
+            article.title = form.title.data
+            article.body = form.body.data
+
+            db.session.commit()
+            flash(f"Article succesfully updated", "success")
+
+        except Exception as e:
+            db.session.rollback()
+            flash(e, "danger")
+    elif request.method =='GET':
+
+        form.title.data = article.title
+        form.body.data = article.body
+
+
+    return render_template("studio/add.html",form=form,btn_text="Update article")
+
+
+
+
+@studio.route("/articles/delete/<int:article_id>/",methods=["GET", "POST"],strict_slashes=False)
+def delete_article(article_id):
+    article = Articles.query.filter_by(id=article_id).first()
+
+    db.session.delete(article)
+    db.session.commit()
+    flash(f"Article deleted!", "success")
+
+    return redirect(url_for("studio.articles"))

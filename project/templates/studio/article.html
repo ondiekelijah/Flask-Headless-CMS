@@ -4,9 +4,9 @@
 <div class="container py-4 text-center">
     <h1>STUDIO ARTICLE</h1>
 
-    <p>{{article.title}}</p>
-    <p>{{article.body}}</p>
-    <p>{{article.date}}</p>
+    <p>{{article.title|markdown}}</p>
+    <p>{{article.body|markdown}}</p>
+    <p>{{article.date|markdown}}</p>
 
 </div>
 {% endblock %}

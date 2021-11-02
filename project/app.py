@@ -4,6 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
+from flask_simplemde import SimpleMDE
+from flaskext.markdown import Markdown
+
 
 
 # Create various application instances
@@ -12,6 +15,7 @@ db = SQLAlchemy()
 migrate = Migrate()
 ma = Marshmallow()
 cors = CORS()
+simplemde = SimpleMDE()
 
 
 def create_app():
@@ -20,6 +24,8 @@ def create_app():
     app.secret_key = 'secret-key'
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config["SIMPLEMDE_JS_IIFE"] = True 
+    app.config["SIMPLEMDE_USE_CDN"] = True
 
     # Initialize extensions
     # To use the application instances above, instantiate with an application:
@@ -27,6 +33,8 @@ def create_app():
     migrate.init_app(app, db)
     ma.init_app(app)
     cors.init_app(app)
+    simplemde.init_app(app)
+    Markdown(app, extensions=["nl2br", "fenced_code"])
 
 
     # Register blueprints

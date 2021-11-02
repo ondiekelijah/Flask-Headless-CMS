@@ -50,3 +50,8 @@ def articles():
   results = articles_schema.dump(articles)
 
   return jsonify(results)
+
+@api.route("/articles/<int:article_id>/",methods=("GET", "POST"),strict_slashes=False)
+def article(article_id):
+    article = Articles.query.filter_by(id=article_id).first()
+    return article_schema.jsonify(article)

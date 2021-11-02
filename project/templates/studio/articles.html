@@ -3,12 +3,35 @@
 {% block content%}
 <div class="container py-4 text-center">
     <h1>STUDIO ARTICLES</h1>
-
     {% for article in articles %}
-    <p>{{article.title}}</p>
-    <p>{{article.body}}</p>
+    <p>{{article.title|markdown}}</p>
+    <p>{{article.body|markdown}}</p>
     <p>{{article.date}}</p>
+    <a href="{{ url_for('studio.update_article',article_id = article.id) }}" class="text-white btn btn-primary btn-sm">Edit<i class="bi bi-pencil m-1"></i></a>
+    <!-- Button trigger modal -->
+    <a class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop-{{article.id}}">
+        Delete <i class="bi bi-trash m-1"></i>
+    </a>
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop-{{article.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Delete article</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you wish to delete this article?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="{{ url_for('studio.delete_article',article_id = article.id) }}" class="btn btn-danger">
+                        Yes,delete
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
     {% endfor %}
-
 </div>
 {% endblock %}
