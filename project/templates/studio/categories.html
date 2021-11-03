@@ -1,0 +1,75 @@
+{% extends "studio/base.html" %}
+{% block title%} {{ title }} {% endblock %}
+{% block content%}
+<div class="container py-4">
+    <h3 class="text-center"> {{action}} </h3>
+    <a class="text-white btn btn-primary btn-sm" data-toggle="collapse" href="#showCategoryForm" role="button" aria-expanded="false" aria-controls="showCategoryForm">{{ top_btn_action }}<i class="bi bi-plus-circle m-1"></i></a>
+    <div class="collapse" id="showCategoryForm">
+        <form action="{{request.path}}" method="POST">
+            {{ form.csrf_token }}
+            <!-- Begin add Category form -->
+            <div class="form-group mb-3 mt-3">
+                {{ form.title(class_="form-control",placeholder="Category name")}}
+            </div>
+            {% for error in form.title.errors %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{ error }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+            {% endfor %}
+            <!-- End add Category form -->
+            <button type="submit" class="btn btn-sm  btn-primary mb-3"> {{btn_text}} </button>
+        </form>
+    </div>
+    <div class="table-responsive pt-2">
+        <table class="table table-borderless table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                </tr>
+                </tr>
+            </thead>
+            <tbody class="table">
+                {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td>{{ category.title }}</td>
+                    <td>
+                        <div>
+                            <a href="{{ url_for('studio.update_category',category_id = category.id) }}" class="text-white btn btn-primary btn-sm">Edit<i class="bi bi-pencil m-1"></i></a>
+                            <!-- Button trigger modal -->
+                            <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#staticBackdrop-{{category.id}}">
+                                Delete <i class="bi bi-trash m-1"></i>
+                            </a>
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop-{{category.id}}" tabindex="-1" aria-labelledby="categoryDeleteConfirmation" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="categoryDeleteConfirmation">Delete category</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Do you wish to delete this category?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+                                            <a href="{{ url_for('studio.delete_category',category_id = category.id) }}" class="btn btn-sm btn-danger">
+                                                Yes,delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

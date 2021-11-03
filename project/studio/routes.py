@@ -1,5 +1,5 @@
 from flask import Blueprint
-from .forms import ArticleForm
+from .forms import ArticleForm,AuthorForm,CategoryForm
 # from . import *
 from app import db
 # bcrypt, login_manager
@@ -27,15 +27,17 @@ from flask import (
     jsonify
 )
 
-from models import Articles,articles_schema
+from models import Articles,articles_schema,Category,Authors
 
 studio = Blueprint("studio", __name__, url_prefix="/studio")
 
 
 # CLIENT STUDIO ROUTES
+# ARTICLES
+
 @studio.route("/", methods=["GET", "POST"], strict_slashes=False)
 def index():
-    return render_template("studio/index.html")
+    return render_template("studio/index.html",title="Studio | Home")
 
 
 @studio.route("/articles", methods=["GET"], strict_slashes=False)
@@ -43,15 +45,15 @@ def articles():
 
     articles = Articles.query.filter_by(id=Articles.id).all()
 
-    return render_template("studio/articles.html",articles=articles)
+    return render_template("studio/articles.html",articles=articles,title="Studio | Articles")
 
 
-@studio.route("articles/<int:post_id>",methods=["GET", "POST"],strict_slashes=False)
-def article(post_id):
+@studio.route("articles/<int:article_id>",methods=["GET", "POST"],strict_slashes=False)
+def article(article_id):
     
-    article = Post.query.filter_by(id=post_id).first_or_404()
+    article = Articles.query.filter_by(id=article_id).first_or_404()
 
-    return render_template('studio/article.html',article=article)
+    return render_template('studio/article.html',article=article,title="Studio | Article")
 
 
 @studio.route("/new-article", methods=["GET", "POST"], strict_slashes=False)
@@ -78,7 +80,12 @@ def add_article():
             db.session.rollback()
             flash(e, "danger")
 
-    return render_template("studio/add.html",form=form,btn_text="Publish article")
+    return render_template("studio/add.html",
+        form=form,
+        btn_text="Publish article",
+        action="Write a new article",
+        title="Studio | New article"
+        )
 
 
 @studio.route("/articles/update/<int:article_id>/",methods=["GET", "POST"],strict_slashes=False)
@@ -96,6 +103,7 @@ def update_article(article_id):
 
             db.session.commit()
             flash(f"Article succesfully updated", "success")
+            return redirect(url_for("studio.articles"))
 
         except Exception as e:
             db.session.rollback()
@@ -106,7 +114,12 @@ def update_article(article_id):
         form.body.data = article.body
 
 
-    return render_template("studio/add.html",form=form,btn_text="Update article")
+    return render_template("studio/add.html",
+        form=form,
+        btn_text="Update article",
+        action="Update article",
+        title="Studio | Update article"
+        )
 
 
 
@@ -120,3 +133,171 @@ def delete_article(article_id):
     flash(f"Article deleted!", "success")
 
     return redirect(url_for("studio.articles"))
+
+# Article Categories
+
+@studio.route("/categories",methods=["GET", "POST"], strict_slashes=False)
+def categories():
+    form = CategoryForm()
+    if request.method == "GET":
+
+        categories = Category.query.filter_by(id=Category.id).all()
+
+    elif request.method == "POST" and form.validate_on_submit():
+
+        try:
+            title = form.title.data
+              
+            category = Category(
+                title=title
+            )
+            db.session.add(category)
+            db.session.commit()
+            flash(f"Category succesfully added", "success")
+
+            return redirect(url_for("studio.categories"))
+
+        except Exception as e:
+            db.session.rollback()
+            flash(e, "danger")
+
+    return render_template("studio/categories.html",
+        form=form,
+        categories=categories,
+        top_btn_action="Add category",
+        btn_text="Save",
+        action="Manage Categories",
+        title="Studio | Category"
+        )
+
+
+@studio.route("/category/update/<int:category_id>/",methods=["GET", "POST"],strict_slashes=False)
+def update_category(category_id):
+
+    form = CategoryForm()
+
+    category = Category.query.filter_by(id=category_id).first()
+
+
+    if form.validate_on_submit() and request.method =='POST':
+        try:
+            category.title = form.title.data
+
+            db.session.commit()
+            flash(f"Record succesfully updated", "success")
+            return redirect(url_for("studio.categories"))
+
+        except Exception as e:
+            db.session.rollback()
+            flash(e, "danger")
+    elif request.method =='GET':
+
+        form.title.data = category.title
+
+    return render_template("studio/categories.html",
+        category=category,
+        form=form,
+        btn_text="Save",
+        top_btn_action="Update category",
+        action="Update Category",
+        title="Studio | Update Category"
+        )
+
+
+
+
+@studio.route("/categorys/delete/<int:category_id>/",methods=["GET", "POST"],strict_slashes=False)
+def delete_category(category_id):
+    category = Category.query.filter_by(id=category_id).first()
+
+    db.session.delete(category)
+    db.session.commit()
+    flash(f"Category deleted!", "success")
+
+    return redirect(url_for("studio.category"))
+
+# Authors
+
+@studio.route("/authors", methods=["GET", "POST"], strict_slashes=False)
+def authors():
+    form = AuthorForm()
+
+    if request.method == "GET":
+
+        authors = Authors.query.filter_by(id=Authors.id).all()
+
+    elif request.method == "POST" and form.validate_on_submit():
+
+        try:
+            name = form.name.data
+              
+            author = Authors(
+                name=name
+            )
+            db.session.add(author)
+            db.session.commit()
+            flash(f"Author succesfully added", "success")
+
+            return redirect(url_for("studio.authors"))
+
+        except Exception as e:
+            db.session.rollback()
+            flash(e, "danger")
+
+    return render_template("studio/authors.html",
+        authors=authors,
+        form=form,
+        top_btn_action="Add author",
+        btn_text="Save Author",
+        action="Manage Authors",
+        title="Studio | New Author"
+        )
+
+
+@studio.route("/authors/update/<int:author_id>/",methods=["GET", "POST"],strict_slashes=False)
+def update_author(author_id):
+
+    form = AuthorForm()
+
+    author = Authors.query.filter_by(id=author_id).first()
+
+
+    if form.validate_on_submit() and request.method =='POST':
+        try:
+            author.name = form.name.data
+
+            db.session.commit()
+            flash(f"Record succesfully updated", "success")
+            return redirect(url_for("studio.authors"))
+
+        except Exception as e:
+            db.session.rollback()
+            flash(e, "danger")
+
+    elif request.method =='GET':
+
+        form.name.data = author.name
+
+    return render_template("studio/authors.html",
+        form=form,
+        author=author,
+        top_btn_action="Update author",
+        btn_text="Save",
+        action="Update Author",
+        title="Studio | Update Author"
+        )
+
+
+
+
+@studio.route("/authors/delete/<int:author_id>/",methods=["GET", "POST"],strict_slashes=False)
+def delete_author(author_id):
+    author = Authors.query.filter_by(id=author_id).first()
+
+    db.session.delete(author)
+    db.session.commit()
+    flash(f"Author deleted!", "success")
+
+    return redirect(url_for("studio.authors"))
+
+
