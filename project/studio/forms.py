@@ -1,10 +1,12 @@
 from wtforms import (
     StringField,
     TextAreaField,
-    SelectField
+    SelectField,
+    FileField
 )
 
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import InputRequired,Length,Optional,Regexp
 from models import Authors,Category
 from flask_pagedown.fields import PageDownField
@@ -14,6 +16,7 @@ from flask_pagedown.fields import PageDownField
 class ArticleForm(FlaskForm):
     title = StringField(validators=[InputRequired()])
     body = PageDownField(validators=[InputRequired()])
+    image = FileField(validators=[FileAllowed(["jpg", "png", "jpeg", "svg","webp"])])
 
 
 class AuthorForm(FlaskForm):

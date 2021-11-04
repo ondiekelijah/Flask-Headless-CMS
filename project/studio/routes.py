@@ -1,5 +1,6 @@
 from flask import Blueprint
 from .forms import ArticleForm,AuthorForm,CategoryForm
+from .uploader import upload_img
 # from . import *
 from app import db
 # bcrypt, login_manager
@@ -25,6 +26,15 @@ from flask import (
     abort,
     current_app,
     jsonify
+)
+
+from werkzeug.routing import BuildError
+from sqlalchemy.exc import (
+    IntegrityError,
+    DataError,
+    DatabaseError,
+    InterfaceError,
+    InvalidRequestError,
 )
 
 from models import Articles,articles_schema,Category,Authors
@@ -75,12 +85,17 @@ def add_article():
 
     if request.method =='POST':
         try:
+            picture_file = upload_img(request.files['file'])
+
             title = request.form.get("title")
             body = request.form.get("content")
+            image = picture_file
 
             article = Articles(
                 title=title,
-                body=body
+                body=body,
+                image=image
+
             )
 
             db.session.add(article)
@@ -92,9 +107,9 @@ def add_article():
         except InvalidRequestError:
             db.session.rollback()
             flash(f"Something went wrong!", "danger")
-        except IntegrityError:
-            db.session.rollback()
-            flash(f"IntegrityError!.", "warning")
+        # except IntegrityError:
+        #     db.session.rollback()
+        #     flash(f"IntegrityError!.", "warning")
         except DataError:
             db.session.rollback()
             flash(f"Invalid Entry", "warning")
@@ -124,11 +139,14 @@ def update_article(article_id):
 
     article = Articles.query.filter_by(id=article_id).first()
 
-
     if form.validate_on_submit() and request.method =='POST':
         try:
             article.title = form.title.data
             article.body = form.body.data
+
+            if form.image.data:
+                picture_file = upload_img(form.image.data)
+                article.image = picture_file
 
             db.session.commit()
             flash(f"Article succesfully updated", "success")
@@ -142,6 +160,7 @@ def update_article(article_id):
 
         form.title.data = article.title
         form.body.data = article.body
+
 
 
     return render_template("studio/add.html",
