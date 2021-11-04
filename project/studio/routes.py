@@ -83,6 +83,13 @@ def add_article():
 
     form = ArticleForm()
 
+    categories = [(c.id, c.title) for c in Category.query.filter_by(id=Category.id).all()]
+    authors = [(c.id, c.name) for c in Authors.query.filter_by(id=Authors.id).all()]
+
+    form = ArticleForm(request.form)
+    form.category.choices = categories
+    form.author.choices = authors
+
     if request.method =='POST':
         try:
             picture_file = upload_img(request.files['file'])
@@ -91,10 +98,16 @@ def add_article():
             body = request.form.get("content")
             image = picture_file
 
+
+            author = form.author.data
+            category = form.category.data
+
             article = Articles(
                 title=title,
                 body=body,
-                image=image
+                image=image,
+                author_id=author,
+                category_id=category
 
             )
 
@@ -107,9 +120,9 @@ def add_article():
         except InvalidRequestError:
             db.session.rollback()
             flash(f"Something went wrong!", "danger")
-        # except IntegrityError:
-        #     db.session.rollback()
-        #     flash(f"IntegrityError!.", "warning")
+        except IntegrityError:
+            db.session.rollback()
+            flash(f"IntegrityError!.", "warning")
         except DataError:
             db.session.rollback()
             flash(f"Invalid Entry", "warning")
@@ -125,6 +138,8 @@ def add_article():
 
     return render_template("studio/add.html",
         form=form,
+        authors_list=get_authors(),
+        category_list=get_categories(),
         btn_text="Publish article",
         action="Write a new article",
         title="Studio | New article"
@@ -137,12 +152,21 @@ def update_article(article_id):
 
     form = ArticleForm()
 
+    categories = [(c.id, c.title) for c in Category.query.filter_by(id=Category.id).all()]
+    authors = [(c.id, c.name) for c in Authors.query.filter_by(id=Authors.id).all()]
+
+    form = ArticleForm(request.form)
+    form.category.choices = categories
+    form.author.choices = authors
+
     article = Articles.query.filter_by(id=article_id).first()
 
     if form.validate_on_submit() and request.method =='POST':
         try:
             article.title = form.title.data
             article.body = form.body.data
+            article.category = form.category.data
+            article.author = form.author.data
 
             if form.image.data:
                 picture_file = upload_img(form.image.data)
@@ -160,6 +184,8 @@ def update_article(article_id):
 
         form.title.data = article.title
         form.body.data = article.body
+        form.author.data = article.author_id
+        form.category.data = article.category_id
 
 
 
@@ -188,14 +214,13 @@ def delete_article(article_id):
 @studio.route("/categories",methods=["GET", "POST"], strict_slashes=False)
 def categories():
     form = CategoryForm()
-    if request.method == "GET":
 
-        categories = Category.query.filter_by(id=Category.id).all()
+    categories = Category.query.filter_by(id=Category.id).all()
 
-    elif request.method == "POST" and form.validate_on_submit():
+    if request.method == "POST" and form.validate_on_submit():
 
         try:
-            title = form.title.data
+            title = form.c_title.data
               
             category = Category(
                 title=title

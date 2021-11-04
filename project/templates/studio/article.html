@@ -2,38 +2,48 @@
 {% block title%} {{ title }} {% endblock %}
 {% block content%}
 <div>
-
     <h1>{{article.title}}</h1>
     <div class="mb-3">
-    <a href="{{ url_for('studio.update_article',article_id = article.id) }}" class="text-white btn btn-primary btn-sm">Edit<i class="bi bi-pencil m-1"></i></a>
-    <!-- Button trigger modal -->
-    <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#staticBackdrop-{{article.id}}">
-        Delete <i class="bi bi-trash m-1"></i>
-    </a>
-    <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop-{{article.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Delete article</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Do you wish to delete this article?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-                    <a href="{{ url_for('studio.delete_article',article_id = article.id) }}" class="btn btn-danger btn-sm">
-                        Yes,delete
-                    </a>
+        <a href="{{ url_for('studio.update_article',article_id = article.id) }}" class="text-white btn btn-primary btn-sm">Edit<i class="bi bi-pencil m-1"></i></a>
+        <!-- Button trigger modal -->
+        <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#staticBackdrop-{{article.id}}">
+            Delete <i class="bi bi-trash m-1"></i>
+        </a>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop-{{article.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Delete article</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you wish to delete this article?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        <a href="{{ url_for('studio.delete_article',article_id = article.id) }}" class="btn btn-danger btn-sm">
+                            Yes,delete
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <img src="/static/images/uploads/{{ article.image }}" alt="" class="img-fluid mb-2 article-image">
+    <div class="d-flex mb-2 mt-2">
+        <p class="mr-2">
+            <i class="bi bi-person-fill m-1"></i>{{ article.author.name }}
+        </p>
+        <p class="mr-2">
+            <i class="bi bi-clock-fill m-1"></i>{{ article.date.strftime('%B %d,%Y') }}
+        </p>
+        <p class="mr-2">
+            <i class="bi bi-tag-fill m-1"></i>{{ article.category.title }}
+        </p>
     </div>
-    <img src="/static/images/uploads/{{ article.image }}" alt="" class="img-fluid mb-2">
     {{article.body |markdown }}
     {{article.date}}
 </div>

@@ -10,6 +10,8 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import InputRequired,Length,Optional,Regexp
 from models import Authors,Category
 from flask_pagedown.fields import PageDownField
+from app import create_app
+from models import Authors,Category
 
 
 
@@ -17,6 +19,8 @@ class ArticleForm(FlaskForm):
     title = StringField(validators=[InputRequired()])
     body = PageDownField(validators=[InputRequired()])
     image = FileField(validators=[FileAllowed(["jpg", "png", "jpeg", "svg","webp"])])
+    author = SelectField('Author', choices=[], coerce=int)
+    category = SelectField('Category', choices=[], coerce=int)
 
 
 class AuthorForm(FlaskForm):

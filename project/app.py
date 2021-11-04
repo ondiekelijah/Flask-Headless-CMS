@@ -6,6 +6,8 @@ from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 from flask_simplemde import SimpleMDE
 from flaskext.markdown import Markdown
+from flask_moment import Moment
+
 
 
 # Create various application instances
@@ -15,7 +17,7 @@ migrate = Migrate()
 ma = Marshmallow()
 cors = CORS()
 simplemde = SimpleMDE()
-
+moment = Moment()
 
 
 def create_app():
@@ -36,6 +38,7 @@ def create_app():
     cors.init_app(app)
     simplemde.init_app(app)
     mkdwn = Markdown(app, extensions=["nl2br", "fenced_code"])
+    moment.init_app(app)
 
 
     # Register blueprints

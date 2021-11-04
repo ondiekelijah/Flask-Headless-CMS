@@ -12,6 +12,13 @@
         </div>
         <div class="col-md-7 mt-2">
             <a href="{{url_for('studio.article',article_id = article.id)}}">{{article.title }}</a>
+            <div class="d-flex justify-content-between">
+                <p>
+                    <i class="bi bi-person-fill m-1"></i>{{ article.author.name }}&nbsp;&nbsp;
+                    <i class="bi bi-clock-fill m-1"></i>{{ article.date.strftime('%B %d,%Y') }}&nbsp;&nbsp;
+                    <i class="bi bi-tag-fill m-1"></i>{{ article.category.title }}&nbsp;&nbsp;
+                </p>
+            </div>            
             <br>
             <div class="mt-4">
                 <a href="{{ url_for('studio.update_article',article_id = article.id) }}" class="text-white btn btn-primary btn-sm">Edit<i class="bi bi-pencil m-1"></i></a>

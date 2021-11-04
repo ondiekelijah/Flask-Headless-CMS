@@ -2,4 +2,4 @@
 *.db
 .env
 /venv
-/uploads
+/static/images/uploads
