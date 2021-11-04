@@ -17,7 +17,7 @@ app = create_app()
 
 @app.route("/", methods=("GET", "POST"), strict_slashes=False)
 def index():
-    return render_template("index.html")
+    return render_template("main/index.html")
     
 if __name__ == "__main__":
 	app.run(debug=True)

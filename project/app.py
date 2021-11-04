@@ -8,7 +8,6 @@ from flask_simplemde import SimpleMDE
 from flaskext.markdown import Markdown
 
 
-
 # Create various application instances
 # Order matters: Initialize SQLAlchemy before Marshmallow
 db = SQLAlchemy()
@@ -16,6 +15,7 @@ migrate = Migrate()
 ma = Marshmallow()
 cors = CORS()
 simplemde = SimpleMDE()
+
 
 
 def create_app():
@@ -27,6 +27,7 @@ def create_app():
     app.config["SIMPLEMDE_JS_IIFE"] = True 
     app.config["SIMPLEMDE_USE_CDN"] = True
 
+
     # Initialize extensions
     # To use the application instances above, instantiate with an application:
     db.init_app(app)
@@ -34,7 +35,7 @@ def create_app():
     ma.init_app(app)
     cors.init_app(app)
     simplemde.init_app(app)
-    Markdown(app, extensions=["nl2br", "fenced_code"])
+    mkdwn = Markdown(app, extensions=["nl2br", "fenced_code"])
 
 
     # Register blueprints

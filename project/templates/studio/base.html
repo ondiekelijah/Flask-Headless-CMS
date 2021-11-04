@@ -17,7 +17,7 @@
     <!-- CSS Stylesheets -->
     <link rel="stylesheet" href="{{url_for('static',filename='studio/styles.css')}}">
     <title> {% block title%} {{ title }} {% endblock %} </title>
-    {{ simplemde.css }}
+    {{ simplemde.css }} 
     {{ simplemde.js }}
 </head>
 
@@ -87,6 +87,7 @@
                                 {% endwith %} 
                             </div>
                             {% block content%}
+
                             {% endblock %}
                         </div>
                     </div>
@@ -95,6 +96,7 @@
         </div>
     </div>
     <!-- JS scripts -->
+
     <script src="{{url_for('static',filename='studio/scripts.js')}}"></script>
 </body>
 

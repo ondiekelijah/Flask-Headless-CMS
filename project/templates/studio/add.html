@@ -3,33 +3,48 @@
 {% block content%}
 <div class="container py-4">
     <h2 class="text-center"> {{action}} </h2>
-    
+    {% if request.path == "/studio/new-article" %}
+
     <form action="{{request.path}}" method="POST">
-        {{ form.csrf_token }}
-
-        <!-- Begin add article form -->
         <div class="form-group mb-3">
-            {{ form.title(class_="form-control",placeholder="Title")}}
+            <input type="text" name="title" class="form-control" placeholder="Title">
         </div>
-        {% for error in form.title.errors %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            {{ error }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endfor%}
-        <div class="form-group mb-3">
-            {{ form.body(class_="form-control",placeholder="Body")}}
-        </div>
-        {% for error in form.body.errors %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            {{ error }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        {% endfor%}
-        <!-- End add article form -->
 
-        <button type="submit" class="btn  btn-primary mb-3"> {{btn_text}} </button>
+        <div class="form-group mb-3">
+            <textarea type="text" name="content" id="content" placeholder="Body"></textarea>
+            {{ simplemde.load }}
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-3"> {{btn_text}} </button>
     </form>
-    {{ simplemde.load }}
 </div>
+
+{% else %}
+
+<form action="{{request.path}}" method="POST">
+    {{ form.csrf_token }}
+    <!-- Begin add article form -->
+    <div class="form-group mb-3">
+        {{ form.title(class_="form-control",placeholder="Title")}}
+    </div>
+    {% for error in form.title.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ error }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endfor%}
+    <div class="form-group mb-3">
+        {{ form.body(class_="form-control",placeholder="Body")}}
+        {{ simplemde.load }}
+    </div>
+    {% for error in form.body.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{ error }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endfor%}
+    <!-- End add article form -->
+    <button type="submit" class="btn btn-primary mb-3"> {{btn_text}} </button>
+</form>
+{% endif %}
 {% endblock %}

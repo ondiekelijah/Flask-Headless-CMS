@@ -9,9 +9,9 @@
             {{ form.csrf_token }}
             <!-- Begin add Category form -->
             <div class="form-group mb-3 mt-3">
-                {{ form.title(class_="form-control",placeholder="Category name")}}
+                {{ form.c_title(class_="form-control",placeholder="Category name")}}
             </div>
-            {% for error in form.title.errors %}
+            {% for error in form.c_title.errors %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 {{ error }}
                 <button type="button" class="close" data-dismiss="alert">&times;</button>

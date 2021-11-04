@@ -2,7 +2,8 @@
 {% block title%} {{ title }} {% endblock %}
 {% block content%}
 <div>
-    <h1>{{article.title|markdown}}</h1>
+
+    <h1>{{article.title}}</h1>
     <div class="mb-3">
     <a href="{{ url_for('studio.update_article',article_id = article.id) }}" class="text-white btn btn-primary btn-sm">Edit<i class="bi bi-pencil m-1"></i></a>
     <!-- Button trigger modal -->
@@ -32,7 +33,7 @@
         </div>
     </div>
     </div>
-    {{article.body|markdown}}
+    {{article.body |markdown }}
     {{article.date}}
 </div>
 {% endblock %}
