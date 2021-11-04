@@ -65,7 +65,7 @@ def index():
 @studio.route("/articles", methods=["GET"], strict_slashes=False)
 def articles():
 
-    articles = Articles.query.filter_by(id=Articles.id).all()
+    articles = Articles.query.filter_by(id=Articles.id).order_by(Articles.date.desc()).all()
 
     return render_template("studio/articles.html",articles=articles,title="Studio | Articles")
 
