@@ -42,11 +42,9 @@ def create_app():
 
 
     # Register blueprints
-    from auth.routes import auth
     from api.routes import api
     from studio.routes import studio
 
-    app.register_blueprint(auth)
     app.register_blueprint(api)
     app.register_blueprint(studio)
 

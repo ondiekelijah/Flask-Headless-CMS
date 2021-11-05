@@ -28,6 +28,7 @@
             <!-- sidebar -->
             <div class="col-md-3 col-lg-2 px-0 position-fixed h-100 bg-white shadow-sm sidebar" id="sidebar">
                 <h1 class="bi bi-fan text-primary d-flex my-4 justify-content-center"></h1>
+                
                 <div class="list-group rounded-0">
                     <a href="{{url_for('studio.index')}}" class="list-group-item list-group-item-action active border-0 d-flex align-items-center">
                         <span class="bi bi-border-all"></span>
@@ -90,12 +91,14 @@
                             {% block content%}
 
                             {% endblock %}
+
                         </div>
                     </div>
                 </main>
             </div>
         </div>
     </div>
+     
     <!-- JS scripts -->
 
     <script src="{{url_for('static',filename='studio/scripts.js')}}"></script>

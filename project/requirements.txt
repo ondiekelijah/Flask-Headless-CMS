@@ -2,8 +2,12 @@ alembic==1.6.5
 click==8.0.1
 Flask==2.0.1
 Flask-Cors==3.0.10
+Flask-Markdown==0.3
 flask-marshmallow==0.14.0
 Flask-Migrate==3.1.0
+Flask-Moment==1.0.2
+Flask-PageDown==0.4.0
+Flask-SimpleMDE==0.3.0
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==0.15.1
 greenlet==1.1.0
@@ -16,6 +20,7 @@ MarkupSafe==2.0.1
 marshmallow==3.13.0
 marshmallow-sqlalchemy==0.26.1
 mysqlclient==2.0.3
+Pillow==8.4.0
 python-dateutil==2.8.2
 python-editor==1.0.4
 six==1.16.0

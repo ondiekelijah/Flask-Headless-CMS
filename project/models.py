@@ -6,7 +6,7 @@ class Articles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100),nullable=False)
     body = db.Column(db.Text, nullable=False)
-    image = db.Column(db.String(150), nullable=False)
+    image = db.Column(db.String(150), nullable=True)
     date = db.Column(db.DateTime(), default=datetime.utcnow)
 
     author_id = db.Column(db.Integer, db.ForeignKey("authors.id"), nullable = False)

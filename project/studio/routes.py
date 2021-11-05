@@ -165,8 +165,8 @@ def update_article(article_id):
         try:
             article.title = form.title.data
             article.body = form.body.data
-            article.category = form.category.data
-            article.author = form.author.data
+            article.category_id = form.category.data
+            article.author_id = form.author.data
 
             if form.image.data:
                 picture_file = upload_img(form.image.data)
