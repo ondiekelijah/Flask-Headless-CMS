@@ -11,7 +11,6 @@ from wtforms.validators import InputRequired,Length,Optional,Regexp
 from models import Authors,Category
 from flask_pagedown.fields import PageDownField
 from app import create_app
-from models import Authors,Category
 
 
 
