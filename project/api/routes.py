@@ -36,7 +36,7 @@ from flask import (
 #     InvalidRequestError,
 # )
 
-from models import Articles,articles_schema
+from models import Articles,articles_schema,article_schema
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
