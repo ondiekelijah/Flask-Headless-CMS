@@ -73,6 +73,7 @@ flask run
 Navigate to the root of the directory,then execute
 <br>
 `pytest`
+<br>
 Explore more on pytest [here](https://docs.pytest.org/en/6.2.x/)
 </br>
 <div align="center"><h1>Follow me on Twitter</h1></div>
