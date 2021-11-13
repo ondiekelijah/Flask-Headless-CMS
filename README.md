@@ -43,16 +43,13 @@ Applies for windows/macOS/Linux
 cd project
 pip install -r requirements.txt
 ```
-### 4 .Create a database
 
-```python db_init.py```
-
-### 5 .Migrate a database to latest version
+### 4 .Create/Migrate a database to latest version
 > Not necessary when installing for the first time.
 
-```python migrate.py```
+```python manage.py```
 
-### 6. Run the application 
+### 5. Run the application 
 
 **For linux and macOS**
 Make the run file executable by running the code
