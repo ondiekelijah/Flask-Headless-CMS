@@ -9,8 +9,8 @@ from flask import (
     current_app,
     jsonify
 )
-from app import create_app,db
-from models import Articles,articles_schema
+from cms import create_app,db
+from cms.models import Articles,articles_schema
 
 # Create an application instance
 app = create_app()

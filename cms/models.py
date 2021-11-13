@@ -1,4 +1,4 @@
-from app import db,ma
+from cms import db,ma
 from datetime import datetime
 
 

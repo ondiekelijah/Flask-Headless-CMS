@@ -1,4 +1,4 @@
-from models import Articles,Authors,Category
+from cms.models import Articles,Authors,Category
 
 
 # def test_new_user():

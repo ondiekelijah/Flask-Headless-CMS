@@ -1,6 +1,6 @@
 from flask import request, jsonify
-import pytest,requests,app,json
-from main import app
+import pytest,requests,json
+from cms.app import app
 
 # Create a test client using the Flask application configured for testing
 

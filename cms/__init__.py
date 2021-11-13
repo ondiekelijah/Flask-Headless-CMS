@@ -24,7 +24,7 @@ def create_app():
     """Application-factory pattern"""
     app = Flask(__name__)
     app.secret_key = 'secret-key'
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cms_database.db"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config["SIMPLEMDE_JS_IIFE"] = True 
     app.config["SIMPLEMDE_USE_CDN"] = True
@@ -42,8 +42,8 @@ def create_app():
 
 
     # Register blueprints
-    from api.routes import api
-    from studio.routes import studio
+    from cms.api.routes import api
+    from cms.studio.routes import studio
 
     app.register_blueprint(api)
     app.register_blueprint(studio)

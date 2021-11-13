@@ -2,7 +2,7 @@ from flask import Blueprint
 from .forms import ArticleForm,AuthorForm,CategoryForm
 from .uploader import upload_img
 # from . import *
-from app import db
+from cms import db
 # bcrypt, login_manager
 from flask import current_app
 
@@ -37,7 +37,7 @@ from sqlalchemy.exc import (
     InvalidRequestError,
 )
 
-from models import Articles,articles_schema,Category,Authors
+from cms.models import Articles,articles_schema,Category,Authors
 
 studio = Blueprint("studio", __name__, url_prefix="/studio")
 

@@ -3,15 +3,15 @@ import tempfile
 
 import pytest
 
-from main import app
-from db_init import deploy
+from cms.app import app,db
+from cms import create_app
 
 # Create a test client using the Flask application configured for testing
+
 
 @pytest.fixture
 def client():
     with app.test_client() as client:
-        deploy()
         yield client
 
 
@@ -22,7 +22,7 @@ def test_home_page(client):
     WHEN the '/' page is requested (GET)
     THEN check that the response is valid
     """
-
+    
     response = client.get('/')
     assert response.status_code == 200
     assert b'Headless CMS in Flask' in response.data

@@ -1,7 +1,7 @@
 from flask import Blueprint
 # from .forms import *
 # from . import *
-from app import db
+from cms import db
 # bcrypt, login_manager
 from flask import current_app
 
@@ -36,7 +36,7 @@ from flask import (
 #     InvalidRequestError,
 # )
 
-from models import Articles,articles_schema,article_schema
+from cms.models import Articles,articles_schema,article_schema
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
