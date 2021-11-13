@@ -40,19 +40,16 @@ or
 Applies for windows/macOS/Linux
 
 ```
-cd project
+cd cms
 pip install -r requirements.txt
 ```
-### 4 .Create a database
 
-```python db_init.py```
+### 4 .Create/Migrate a database to latest version
+> Execute in the top level directory.
 
-### 5 .Migrate a database to latest version
-> Not necessary when installing for the first time.
+```python manage.py```
 
-```python migrate.py```
-
-### 6. Run the application 
+### 5. Run the application 
 
 **For linux and macOS**
 Make the run file executable by running the code
@@ -65,7 +62,7 @@ Then start the application by executing the run file
 
 **On windows**
 ```
-set FLASK_APP=main
+set FLASK_APP=app
 flask run
 ```
 ## Running tests
