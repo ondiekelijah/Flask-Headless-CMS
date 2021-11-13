@@ -2,7 +2,7 @@
 
 FROM python:3.9.2
 
-WORKDIR project
+WORKDIR cms
 
 COPY requirements.txt requirements.txt
 
