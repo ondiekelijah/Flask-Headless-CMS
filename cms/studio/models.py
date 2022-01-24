@@ -1,6 +1,5 @@
-from cms import db,ma
+from .main import db
 from datetime import datetime
-
 
 class Articles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -19,17 +18,6 @@ class Articles(db.Model):
 
     def __repr__(self):
         return "<Articles %r>" % self.title
-
-# Generate marshmallow Schemas from your models
-class ArticlesShema(ma.Schema):
-    class Meta:
-        # Fields to expose
-        fields = ("id","title", "body", "date")
-
-
-article_schema = ArticlesShema()
-articles_schema = ArticlesShema(many=True)
-
 
 
 class Authors(db.Model):

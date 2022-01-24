@@ -1,20 +1,8 @@
 from flask import Blueprint
 from .forms import ArticleForm,AuthorForm,CategoryForm
-from .uploader import upload_img
-# from . import *
-from cms import db
-# bcrypt, login_manager
+from .utils import upload_img
+from .main import db
 from flask import current_app
-
-# from flask_login import (
-#     UserMixin,
-#     login_required,
-#     login_user,
-#     LoginManager,
-#     current_user,
-#     logout_user,
-#     login_required,
-# )
 
 from flask import (
     Flask,
@@ -37,12 +25,9 @@ from sqlalchemy.exc import (
     InvalidRequestError,
 )
 
-from cms.models import Articles,articles_schema,Category,Authors
+from .models import Articles,Category,Authors
 
 studio = Blueprint("studio", __name__, url_prefix="/studio")
-
-# Fetch authors and categories from the database
-
 
 # CLIENT STUDIO ROUTES
 # ARTICLES

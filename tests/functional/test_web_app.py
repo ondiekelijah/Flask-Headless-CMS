@@ -3,8 +3,7 @@ import tempfile
 
 import pytest
 
-from cms.app import app,db
-from cms import create_app
+from ...cms.studio.main import app,db
 
 # Create a test client using the Flask application configured for testing
 

@@ -1,19 +1,6 @@
 from flask import Blueprint
-# from .forms import *
-# from . import *
-from cms import db
-# bcrypt, login_manager
+from ..studio.main import db
 from flask import current_app
-
-# from flask_login import (
-#     UserMixin,
-#     login_required,
-#     login_user,
-#     LoginManager,
-#     current_user,
-#     logout_user,
-#     login_required,
-# )
 
 from flask import (
     Flask,
@@ -27,16 +14,8 @@ from flask import (
     jsonify
 )
 
-# from werkzeug.routing import BuildError
-# from sqlalchemy.exc import (
-#     IntegrityError,
-#     DataError,
-#     DatabaseError,
-#     InterfaceError,
-#     InvalidRequestError,
-# )
-
-from cms.models import Articles,articles_schema,article_schema
+from ..studio.models import Articles
+from ..studio.schemas import article_schema,articles_schema
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
@@ -54,4 +33,4 @@ def articles():
 @api.route("/articles/<int:article_id>/",methods=("GET", "POST"),strict_slashes=False)
 def article(article_id):
     article = Articles.query.filter_by(id=article_id).first()
-    return article_schema.jsonify(article)
+    return article_schema.dump(article)

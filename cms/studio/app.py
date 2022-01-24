@@ -1,16 +1,8 @@
 from flask import (
     Flask,
     render_template,
-    request,
-    redirect,
-    flash,
-    url_for,
-    abort,
-    current_app,
-    jsonify
 )
-from cms import create_app,db
-from cms.models import Articles,articles_schema
+from .main import create_app
 
 # Create an application instance
 app = create_app()

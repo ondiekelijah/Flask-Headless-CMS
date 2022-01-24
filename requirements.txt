@@ -24,7 +24,6 @@ Markdown==3.3.4
 MarkupSafe==2.0.1
 marshmallow==3.13.0
 marshmallow-sqlalchemy==0.26.1
-mysqlclient==2.0.3
 packaging==21.2
 Pillow==8.4.0
 pluggy==1.0.0

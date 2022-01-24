@@ -8,9 +8,8 @@ from wtforms import (
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms.validators import InputRequired,Length,Optional,Regexp
-from cms.models import Authors,Category
+from .models import Authors,Category
 from flask_pagedown.fields import PageDownField
-from cms import create_app
 
 
 

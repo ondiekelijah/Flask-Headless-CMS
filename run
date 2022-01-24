@@ -1,1 +1,1 @@
-FLASK_APP=cms/app.py FLASK_DEBUG=1 FLASK_ENV=development flask run
+FLASK_APP=cms/studio/app.py FLASK_DEBUG=1 FLASK_ENV=development flask run
