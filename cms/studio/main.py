@@ -7,6 +7,7 @@ from flask_cors import CORS
 from flask_simplemde import SimpleMDE
 from flaskext.markdown import Markdown
 from flask_moment import Moment
+
 # Create various application instances
 # Order matters: Initialize SQLAlchemy before Marshmallow
 
@@ -24,8 +25,12 @@ def create_app():
 
     if app.config["ENV"] == "production":
         app.config.from_object("config.ProductionConfig")
-    else:
+
+    elif app.config["ENV"] == "development":
         app.config.from_object("config.DevelopmentConfig")
+        
+    else:
+        app.config.from_object("config.TestingConfig")
 
     print(f'ENV is set to: {app.config["ENV"]}')
 
