@@ -26,5 +26,5 @@ class DevelopmentConfig(Config):
     SECRET_KEY = environ.get("SECRET_KEY")
 
 class TestingConfig(Config):
-    DATABASE_URI = "sqlite:///database.db"
+    SQLALCHEMY_DATABASE_URI = "sqlite:///database.db"
     TESTING = True
