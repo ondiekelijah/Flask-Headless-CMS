@@ -28,9 +28,10 @@ def create_app():
 
     elif app.config["ENV"] == "development":
         app.config.from_object("config.DevelopmentConfig")
-        
-    else:
+    elif app.config["ENV"] == "development":
         app.config.from_object("config.TestingConfig")
+    else:
+        pass
 
     print(f'ENV is set to: {app.config["ENV"]}')
 
