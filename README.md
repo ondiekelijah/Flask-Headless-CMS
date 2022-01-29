@@ -1,6 +1,8 @@
 # Flask-Headless-CMS
 A Headless Content Management System built in Flask
 
+[![Python application](https://github.com/Dev-Elie/Flask-Headless-CMS/actions/workflows/python-app.yml/badge.svg)](https://github.com/Dev-Elie/Flask-Headless-CMS/actions/workflows/python-app.yml)
+
 ## Set up & Installation.
 
 ### 1 .Clone/Fork the git repo and create an environment 
@@ -43,11 +45,19 @@ Applies for windows/macOS/Linux
 cd cms
 pip install -r requirements.txt
 ```
+### 4. Add a .env file
 
-### 4 .Create/Migrate a database to latest version
-> Execute in the top level directory.
+Create a ".env" file with the contents below. Make sure to include your actual environment variables.
 
-```python manage.py```
+```
+SECRET_KEY=
+DB_NAME=
+TEST_DB_NAME=
+DB_HOSTNAME=localhost
+DB_USER=
+DB_PASSWORD=
+DB_PORT=
+```
 
 ### 5. Run the application 
 
@@ -68,8 +78,9 @@ flask run
 ## Running tests
 
 Navigate to the root of the directory,then execute
-<br>
-`pytest`
+
+`pytest -v`
+
 <br>
 Explore more on pytest [here](https://docs.pytest.org/en/6.2.x/)
 </br>
