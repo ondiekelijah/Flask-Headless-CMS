@@ -26,5 +26,5 @@ class DevelopmentConfig(Config):
     SECRET_KEY = environ.get("SECRET_KEY")
 
 class TestingConfig(Config):
-    SQLALCHEMY_DATABASE_URI = f"postgresql://{environ.get('DB_USER')}:{environ.get('DB_PASSWORD')}@{environ.get('DB_HOSTNAME')}:{environ.get('DB_PORT')}/{environ.get('TEST_DB_NAME')}"
+    # SQLALCHEMY_DATABASE_URI = f"postgresql://{environ.get('DB_USER')}:{environ.get('DB_PASSWORD')}@{environ.get('DB_HOSTNAME')}:{environ.get('DB_PORT')}/{environ.get('TEST_DB_NAME')}"
     TESTING = True

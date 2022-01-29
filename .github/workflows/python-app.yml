@@ -18,7 +18,9 @@ jobs:
       postgres:
         image: postgres:latest
         env:
+          POSTGRES_DB: postgres        
           POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
         ports:
           - 5433:5432
         # Set health checks to wait until postgres has started
@@ -50,7 +52,6 @@ jobs:
       env: 
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         DB_NAME: ${{ secrets.DB_NAME }}
-        TEST_DB_NAME: ${{ secrets.TEST_DB_NAME }}
         DB_HOSTNAME: ${{ secrets.DB_HOSTNAME }}
         DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         DB_USER: ${{ secrets.DB_USER }}
