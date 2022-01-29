@@ -1,6 +1,8 @@
 # Flask-Headless-CMS
 A Headless Content Management System built in Flask
 
+[![Python application](https://github.com/Dev-Elie/Flask-Headless-CMS/actions/workflows/python-app.yml/badge.svg)](https://github.com/Dev-Elie/Flask-Headless-CMS/actions/workflows/python-app.yml)
+
 ## Set up & Installation.
 
 ### 1 .Clone/Fork the git repo and create an environment 
