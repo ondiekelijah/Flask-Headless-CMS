@@ -1,39 +1,39 @@
 from cms.studio.models import Articles,Authors,Category
 
-def test_new_category():
+def test_new_category(client,init_database):
     """
     GIVEN a Category model
     WHEN a new category is created
     THEN check that the title field is defined correctly
     """
-    category = Category(title='Tests in Flask')
-    assert category.title == 'Tests in Flask'
+    category = Category(title='Tours and Travel')
+    assert category.title == 'Tours and Travel'
 
-def test_new_author():
+def test_new_author(client,init_database):
     """
     GIVEN the Author model
     WHEN a new author is created
     THEN check that the name field is defined correctly
     """
-    author = Authors(name='John Doe')
-    assert author.name == 'John Doe'
+    author = Authors(name='Ondiek Elijah Ochieng')
+    assert author.name == 'Ondiek Elijah Ochieng'
 
 
 
-def test_new_article():
+def test_new_article(client,init_database):
     """
     GIVEN an Article model
     WHEN a new article is created
     THEN check the title,body,author_id and category_id fields are defined correctly
     """
-    article = Articles(title='Unit Tests in Flask',
-     body='FlaskIsAwesome,a non tested app is a broken application',
+    article = Articles(title='Importance of Testing',
+     body='Flask is awesome,a non tested app is a broken application',
      author_id=1,
      category_id=1
      )
 
-    assert article.title == 'Unit Tests in Flask'
-    assert article.body == 'FlaskIsAwesome,a non tested app is a broken application'
+    assert article.title == 'Importance of Testing'
+    assert article.body == 'Flask is awesome,a non tested app is a broken application'
     assert article.author_id == 1
     assert article.category_id == 1
 

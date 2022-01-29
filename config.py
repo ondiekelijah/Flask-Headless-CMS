@@ -11,7 +11,7 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{environ.get('DB_USER')}:{environ.get('DB_PASSWORD')}@{environ.get('DB_HOSTNAME')}/{environ.get('DB_NAME')}"
     SIMPLEMDE_JS_IIFE=True
     SIMPLEMDE_USE_CDN=True
 
@@ -26,5 +26,5 @@ class DevelopmentConfig(Config):
     SECRET_KEY = environ.get("SECRET_KEY")
 
 class TestingConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "sqlite:///" + path.join(basedir, "test.sqlite")
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{environ.get('DB_USER')}:{environ.get('DB_PASSWORD')}@{environ.get('DB_HOSTNAME')}/{environ.get('TEST_DB_NAME')}"
     TESTING = True

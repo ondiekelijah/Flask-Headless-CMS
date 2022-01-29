@@ -7,6 +7,7 @@ from flask_cors import CORS
 from flask_simplemde import SimpleMDE
 from flaskext.markdown import Markdown
 from flask_moment import Moment
+import config
 
 # Create various application instances
 # Order matters: Initialize SQLAlchemy before Marshmallow
@@ -19,21 +20,23 @@ simplemde = SimpleMDE()
 moment = Moment()
 
 
-def create_app():
+def create_app(config_class=config.DevelopmentConfig):
+
     """Application-factory pattern"""
     app = Flask(__name__)
+    app.config.from_object(config_class)
 
-    if app.config["ENV"] == "production":
-        app.config.from_object("config.ProductionConfig")
+    # if app.config["ENV"] == "production":
+    #     app.config.from_object("config.ProductionConfig")
 
-    elif app.config["ENV"] == "development":
-        app.config.from_object("config.DevelopmentConfig")
-    elif app.config["ENV"] == "development":
-        app.config.from_object("config.TestingConfig")
-    else:
-        pass
+    # elif app.config["ENV"] == "development":
+    #     app.config.from_object("config.DevelopmentConfig")
+    # elif app.config["ENV"] == "development":
+    #     app.config.from_object("config.TestingConfig")
+    # else:
+    #     pass
 
-    print(f'ENV is set to: {app.config["ENV"]}')
+    # print(f'ENV is set to: {app.config["ENV"]}')
 
     # Initialize extensions
     # To use the application instances above, instantiate with an application:
