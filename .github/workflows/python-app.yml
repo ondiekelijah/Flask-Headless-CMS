@@ -19,7 +19,8 @@ jobs:
         image: postgres:latest
         env:
           POSTGRES_PASSWORD: postgres
-
+        ports:
+          - 5433:5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
