@@ -59,4 +59,4 @@ jobs:
         TEST_DB_NAME: ${{ secrets.TEST_DB_NAME }}
 
       run: |
-        pytest
+        coverage run pytest && coverage report --fail-under=75
